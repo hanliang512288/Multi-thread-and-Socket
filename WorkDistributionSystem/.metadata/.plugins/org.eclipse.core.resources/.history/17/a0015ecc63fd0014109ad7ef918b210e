@@ -1,0 +1,60 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+
+public class TestClass {
+//	public static void main(String[] args){
+		
+		        InputStream is = null;  
+		        InputStreamReader isr = null;  
+		        BufferedReader brStat = null;  
+		        StringTokenizer tokenStat = null;  
+		
+		  
+		            Process process = Runtime.getRuntime().exec("top");  
+		            is = process.getInputStream();                    
+		            isr = new InputStreamReader(is);  
+		            brStat = new BufferedReader(isr);  
+		             
+ 
+		                brStat.readLine();  
+		                brStat.readLine();  
+		                     
+		                tokenStat = new StringTokenizer(brStat.readLine());  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                String cpuUsage = tokenStat.nextToken();  
+		                     
+		                 
+		                System.out.println("CPU idle : "+cpuUsage);  
+		                Float usage = new Float(cpuUsage.substring(0,cpuUsage.indexOf("%")));  
+		                 
+		                return (1-usage.floatValue()/100);  
+		            }  
+		  
+		              
+		        } catch(IOException ioe){  
+		            System.out.println(ioe.getMessage());  
+		            freeResource(is, isr, brStat);  
+//		            return 1;  
+		        } finally{  
+		            freeResource(is, isr, brStat);  
+		        }  
+		  
+		    }
+
+	private static void freeResource(InputStream is, InputStreamReader isr,
+			BufferedReader brStat) {
+		// TODO Auto-generated method stub
+		
+	}  
+	
+}

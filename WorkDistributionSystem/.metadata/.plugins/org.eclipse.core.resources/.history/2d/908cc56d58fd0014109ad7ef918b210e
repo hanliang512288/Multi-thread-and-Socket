@@ -1,0 +1,8 @@
+
+public class TestClass {
+	public static void main(String[] args){
+		
+		WorkerList.parseJson();
+		System.out.println(WorkerList.workerList.get(0).ip);
+	}
+}

@@ -1,0 +1,40 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+
+public class WorkerList {
+	
+	public static ArrayList<Worker> workerList=new ArrayList<Worker>();
+	
+	public static void addWorker(Worker w){
+		workerList.add(w);
+	}
+	
+	public static String readFromFile(String file_path){
+		String laststr="";
+		try {
+			FileInputStream fileInputStream=new FileInputStream(file_path);
+			InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
+			BufferedReader reader = new BufferedReader(inputStreamReader);
+			String tempString = null;
+			while((tempString = reader.readLine()) != null){
+				laststr += tempString;
+				}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return laststr;
+	}
+}

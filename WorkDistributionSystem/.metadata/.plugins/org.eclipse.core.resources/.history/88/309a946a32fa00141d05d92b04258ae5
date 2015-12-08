@@ -1,0 +1,6 @@
+
+public class ClientUti {
+	public void transFile(String path){
+		
+	}
+}

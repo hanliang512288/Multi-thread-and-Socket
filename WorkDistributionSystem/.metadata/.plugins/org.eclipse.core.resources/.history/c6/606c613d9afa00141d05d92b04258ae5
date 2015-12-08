@@ -1,0 +1,15 @@
+import java.util.ArrayList;
+
+public class WorkerList {
+	
+	ArrayList<Worker> workerList=new ArrayList<Worker>();
+	
+	public void addWorker(Worker w){
+		workerList.add(w);
+	}
+	
+	public void readFromFile(String file_path){
+		StringBuffer reader = new StringBuffer();
+        
+	}
+}

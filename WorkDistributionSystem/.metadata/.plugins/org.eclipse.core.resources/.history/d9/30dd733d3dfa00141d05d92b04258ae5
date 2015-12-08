@@ -1,0 +1,17 @@
+import java.net.Socket;
+
+
+public class JobThread implements Runnable{
+	
+	
+	
+	public MasterThread(Socket s){
+		
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

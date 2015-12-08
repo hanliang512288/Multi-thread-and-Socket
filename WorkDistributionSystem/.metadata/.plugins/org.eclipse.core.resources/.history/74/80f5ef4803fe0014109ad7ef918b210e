@@ -1,0 +1,34 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+import org.json.simple.parser.JSONParser;
+
+
+public class WorkThread implements Runnable {
+	
+	private Socket socket;
+	private static final JSONParser parser = new JSONParser();
+	
+	public WorkThread(Socket s){
+		socket=s;
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+		try {
+			DataInputStream in = new DataInputStream(socket.getInputStream());
+			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+			String request=in.readUTF();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}

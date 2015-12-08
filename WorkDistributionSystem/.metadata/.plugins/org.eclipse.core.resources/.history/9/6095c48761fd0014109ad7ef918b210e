@@ -1,0 +1,76 @@
+
+public class TestClass {
+	public static void main(String[] args){
+		
+		 
+		        InputStream is = null;  
+		        InputStreamReader isr = null;  
+		        BufferedReader brStat = null;  
+		        StringTokenizer tokenStat = null;  
+		        try{  
+		            System.out.println("Get usage rate of CUP , linux version: "+linuxVersion);  
+		  
+		            Process process = Runtime.getRuntime().exec("top -b -n 1");  
+		            is = process.getInputStream();                    
+		            isr = new InputStreamReader(is);  
+		            brStat = new BufferedReader(isr);  
+		             
+		            if(linuxVersion.equals("2.4")){  
+		                brStat.readLine();  
+		                brStat.readLine();  
+		                brStat.readLine();  
+		                brStat.readLine();  
+		                 
+		                tokenStat = new StringTokenizer(brStat.readLine());  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                String user = tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                String system = tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                String nice = tokenStat.nextToken();  
+		                 
+		                System.out.println(user+" , "+system+" , "+nice);  
+		                 
+		                user = user.substring(0,user.indexOf("%"));  
+		                system = system.substring(0,system.indexOf("%"));  
+		                nice = nice.substring(0,nice.indexOf("%"));  
+		                 
+		                float userUsage = new Float(user).floatValue();  
+		                float systemUsage = new Float(system).floatValue();  
+		                float niceUsage = new Float(nice).floatValue();  
+		                 
+		                return (userUsage+systemUsage+niceUsage)/100;  
+		            }else{  
+		                brStat.readLine();  
+		                brStat.readLine();  
+		                     
+		                tokenStat = new StringTokenizer(brStat.readLine());  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                tokenStat.nextToken();  
+		                String cpuUsage = tokenStat.nextToken();  
+		                     
+		                 
+		                System.out.println("CPU idle : "+cpuUsage);  
+		                Float usage = new Float(cpuUsage.substring(0,cpuUsage.indexOf("%")));  
+		                 
+		                return (1-usage.floatValue()/100);  
+		            }  
+		  
+		              
+		        } catch(IOException ioe){  
+		            System.out.println(ioe.getMessage());  
+		            freeResource(is, isr, brStat);  
+		            return 1;  
+		        } finally{  
+		            freeResource(is, isr, brStat);  
+		        }  
+		  
+		    }  
+	
+}

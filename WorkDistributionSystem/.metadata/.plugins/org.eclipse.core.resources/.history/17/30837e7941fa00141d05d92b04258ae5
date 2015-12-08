@@ -1,0 +1,29 @@
+import java.io.IOException;
+import java.net.Socket;
+
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocketFactory;
+
+
+public class ClientUti {
+
+	public static void transFile(String path, Socket socket){
+
+	}
+
+	public static void initializeMaster(){
+		WorkerList workers=new WorkerList();
+		workers.readFromFile("");
+		SocketFactory factory=SSLSocketFactory.getDefault();
+		
+		try {
+			Socket socket=factory.createSocket("localhost",4444);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+	}
+}

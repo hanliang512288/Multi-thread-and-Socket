@@ -1,0 +1,20 @@
+import java.net.Socket;
+import java.util.ArrayList;
+
+
+public class JobThread implements Runnable{
+	WorkerList wl;	
+	
+	public JobThread(WorkerList w){
+		wl=w;
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+		
+		
+	}
+
+}

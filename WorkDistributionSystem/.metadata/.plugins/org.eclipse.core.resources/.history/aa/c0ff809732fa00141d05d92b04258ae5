@@ -1,0 +1,9 @@
+import java.net.Socket;
+
+
+public class ClientUti {
+	
+	public static void transFile(String path, Socket socket){
+		
+	}
+}

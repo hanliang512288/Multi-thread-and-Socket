@@ -1,0 +1,51 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+
+
+
+public class JobGUI extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textField;
+	private final JLabel lblNewLabel = new JLabel("New label");
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		JobGUI frame = new JobGUI();
+		frame.setVisible(true);
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public JobGUI() {
+		getContentPane().setLayout(null);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setLayout(null);
+		setVisible(true);
+		setSize(900,300);
+	
+		
+//		textField = new JTextField();
+//		contentPane.add(textField, BorderLayout.NORTH);
+//		textField.setColumns(10);
+//		contentPane.add(lblNewLabel, BorderLayout.CENTER);
+		
+//		 JFileChooser fileChooser = new JFileChooser();
+//		    fileChooser.setDialogTitle("Choose a file");
+//		    this.getContentPane().add(fileChooser);
+//		    fileChooser.setVisible(true);
+		
+		
+	}
+
+}

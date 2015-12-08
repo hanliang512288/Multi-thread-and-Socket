@@ -1,0 +1,22 @@
+import java.net.Socket;
+
+
+public class JobThread implements Runnable{
+	
+	private String workerip;
+	private int workerport;
+	
+	public JobThread(String ip, int port){
+		workerip=ip;
+		workerport=port;
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+		
+		
+	}
+
+}

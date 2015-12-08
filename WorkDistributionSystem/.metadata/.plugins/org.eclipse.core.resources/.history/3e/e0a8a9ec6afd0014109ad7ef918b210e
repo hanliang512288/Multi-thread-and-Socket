@@ -1,0 +1,48 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.ArrayList;
+
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocketFactory;
+
+import org.json.simple.JSONObject;
+
+
+public class ClientUti {
+
+	public static void transFile(String path, Socket socket){
+		
+	}
+
+	public static void initializeMaster(WorkerList wl){
+		
+		ArrayList<Worker> workerlist = wl.workerList;
+		SocketFactory factory=SSLSocketFactory.getDefault();
+
+		for(Worker w:workerlist){
+			try {
+				Socket socket=factory.createSocket(w.ip,w.port);
+				DataInputStream in = new DataInputStream(socket.getInputStream());
+				DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+				out.writeUTF(header());
+				out.flush();
+				String response=in.readUTF();
+				w.state="RUNNING";
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				w.state="DOWN";
+				
+			}
+		}
+	}
+	
+	private synchronized static  String header(String request, String content) {
+		JSONObject obj=new JSONObject();
+		obj.put("Header", request);
+		obj.put("Body", content);
+		return obj.toJSONString();
+	}
+	
+}

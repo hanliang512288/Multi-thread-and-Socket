@@ -1,0 +1,86 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.lang.ProcessBuilder.Redirect;
+import java.net.Socket;
+
+
+
+public class ServerUti {
+
+	public static String createJobfolder(String folderName){
+
+		File folder = new File(folderName);
+		if (!folder.exists()) { 
+			folder.mkdir(); 
+		} 
+		String folderPath=folder.getAbsolutePath();
+		return folderPath;
+	}
+
+	public static void processJarFile(String jarFile, String inputFile,String outputFile){
+		ProcessBuilder pb = new ProcessBuilder("java", "-jar", jarFile,inputFile,outputFile);  
+
+		File file=new File(jarFile);
+		File parentDir=file.getParentFile();
+		pb.directory(parentDir);
+
+		File logfile = new File(parentDir,"log");
+		System.out.println(logfile);
+		pb.redirectErrorStream(true);
+		pb.redirectOutput(logfile);
+		pb.redirectInput(logfile);
+		pb.redirectError(logfile);
+
+
+
+		Process p;
+		try {
+			p = pb.start();
+			int flag=p.waitFor();
+//			logfile.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+
+
+
+	}
+
+	public static void deleteJobfolder(String folderpath){
+		deleteFolderFiles(folderpath);
+		File folder=new File(folderpath);
+		folder.delete();
+	}
+
+	private static void deleteFolderFiles(String folderpath){
+		File filefolder=new File(folderpath);
+		File[] files=filefolder.listFiles();
+		for(File f:files){
+			f.delete();
+		}
+	}
+
+	public static void returnOutput(Socket s){
+
+	}
+
+	public static float getCPULoad(){
+
+
+		return 0;
+
+	}
+
+	public static void receiveFile(Socket s){
+
+	}
+}

@@ -1,0 +1,57 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.ArrayList;
+
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocketFactory;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+
+public class ClientUti {
+	private static final JSONParser parser = new JSONParser();
+	public static void transFile(String path, Socket socket){
+		
+	}
+
+	public static void initializeMaster(WorkerList wl){
+		
+		ArrayList<Worker> workerlist = wl.workerList;
+		SocketFactory factory=SSLSocketFactory.getDefault();
+
+		for(Worker w:workerlist){
+			try {
+				Socket socket=factory.createSocket(w.ip,w.port);
+				DataInputStream in = new DataInputStream(socket.getInputStream());
+				DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+				out.writeUTF(request("Initialize"));
+				out.flush();
+				String response=in.readUTF();
+				JSONObject response_json = (JSONObject) parser.parse(response);
+				String reply=(String)response_json.get("Reply");
+				String workload_s=(String)response_json.get("Workload");
+				float workload_f=Float.parseFloat(workload_s);
+				w.state="RUNNING";
+				w.setWorkLoad(workload_f);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				w.state="DOWN";
+				
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private synchronized static  String request(String request) {
+		JSONObject obj=new JSONObject();
+		obj.put("Request", request);
+		return obj.toJSONString();
+	}
+	
+}

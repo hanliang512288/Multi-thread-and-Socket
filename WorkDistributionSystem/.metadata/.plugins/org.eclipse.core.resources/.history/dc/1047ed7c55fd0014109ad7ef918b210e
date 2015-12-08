@@ -1,0 +1,70 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+
+
+
+public class WorkerList {
+	
+	public static ArrayList<Worker> workerList=new ArrayList<Worker>();
+	private static final JSONParser parser = new JSONParser();
+	
+	public static void addWorker(Worker w){
+		workerList.add(w);
+	}
+	
+	public static String readFromFile(String file_path){
+		String laststr="";
+		try {
+			FileInputStream fileInputStream=new FileInputStream(file_path);
+			InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
+			BufferedReader reader = new BufferedReader(inputStreamReader);
+			String tempString = null;
+			while((tempString = reader.readLine()) != null){
+				laststr += tempString;
+				}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return laststr;
+	}
+	
+	public static void parseJson(){
+		String jsonContext=readFromFile("/Users/Larry/Desktop/workshop/Resources/workerlist.json");
+		JSONObject workerlist;
+		try {
+			workerlist = (JSONObject) parser.parse(jsonContext);
+			int size = workerlist.size();
+			for(int i=0;i<size;i++){
+				JSONObject jo = (JSONObject) workerlist.get("1");
+				String ip=(String) jo.get("IP");
+				int port=(int) jo.get("port");
+				Worker worker=new Worker(port,ip);
+				workerList.add(worker);
+				}
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+}
